@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Scramble</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div>
+        <p class="eyebrow">find every combination</p>
+        <h1>Word Scramble</h1>
+      </div>
+      <div class="hud">
+        <div><span>Found</span><strong id="found">0/0</strong></div>
+        <div><span>Score</span><strong id="score">0</strong></div>
+        <div><span>Round</span><strong id="round">1</strong></div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="found-panel">
+        <h2>Words you can make</h2>
+        <p class="sub">Use the same letters as many times as they appear. Longer words score more.</p>
+        <div id="word-groups"></div>
+      </section>
+
+      <section class="play">
+        <div class="current" id="current" aria-live="polite"></div>
+        <div class="wheel" id="wheel" aria-label="Letter wheel"></div>
+        <p class="status" id="status">Drag across letters, then release to check the word.</p>
+        <div class="actions">
+          <button type="button" id="shuffle">Shuffle</button>
+          <button type="button" id="delete">Delete</button>
+          <button type="button" id="hint">Hint</button>
+          <button type="button" class="primary" id="enter">Enter</button>
+        </div>
+        <div class="setup">
+          <label>
+            Letters
+            <select id="difficulty">
+              <option value="5">5 letters</option>
+              <option value="6" selected>6 letters</option>
+              <option value="7">7 letters</option>
+            </select>
+          </label>
+          <button type="button" id="next">New letters</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="words.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
