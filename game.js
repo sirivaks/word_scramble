@@ -197,7 +197,19 @@ function letterIndexAt(x, y) {
     const btn = el.closest?.(".letter");
     if (btn && btn.closest("#wheel")) return Number(btn.dataset.index);
   }
-  return -1;
+  let best = -1;
+  let bestDist = Infinity;
+  document.querySelectorAll("#wheel .letter").forEach((btn) => {
+    const rect = btn.getBoundingClientRect();
+    const dx = x - (rect.left + rect.width / 2);
+    const dy = y - (rect.top + rect.height / 2);
+    const dist = Math.hypot(dx, dy);
+    if (dist <= rect.width / 2 + 16 && dist < bestDist) {
+      best = Number(btn.dataset.index);
+      bestDist = dist;
+    }
+  });
+  return best;
 }
 
 function beginDrag(event) {
@@ -218,6 +230,7 @@ function beginDrag(event) {
 
 function moveDrag(event) {
   if (!dragging) return;
+  event.preventDefault();
   const index = letterIndexAt(event.clientX, event.clientY);
   if (index >= 0) addLetter(index);
 }
@@ -234,8 +247,8 @@ function endDrag(event) {
 }
 
 const wheelEl = document.getElementById("wheel");
-wheelEl.addEventListener("pointerdown", beginDrag);
-wheelEl.addEventListener("pointermove", moveDrag);
+wheelEl.addEventListener("pointerdown", beginDrag, { passive: false });
+wheelEl.addEventListener("pointermove", moveDrag, { passive: false });
 wheelEl.addEventListener("pointerup", endDrag);
 wheelEl.addEventListener("pointercancel", endDrag);
 
